@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 import 'package:flutter_riverpod_base/src/utils/router.dart';
-import 'feature/home/view/home.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -8,7 +7,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(useMaterial3: true,),
       routerConfig: router,
     );
+
+    //  return MaterialApp(
+    //    home: HomeView(),
+    //  );
   }
 }

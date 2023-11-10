@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod_base/src/res/base.dart';
 
-
 /// Contains all the paths of image used across the project.
 /// Every image path variable name must contain a name and its extension.
 /// example :
@@ -14,16 +13,55 @@ import 'package:flutter_riverpod_base/src/res/base.dart';
 /// ```dart
 /// ImageAssets.sampleImagePng
 /// ```
-class ImageAssets{
+class ImageAssets {
   static const _base = BasePaths.baseImagePath;
+  static const _baseIconPath = BasePaths.baseIconsPath;
 
   static const sampleImagePath = "$_base/image.png";
 
   static const profileImageJpeg = "$_base/profile.jpeg";
+
+  //Svg assets for  [onboarding]
+  static const page1 = "$_base/undraw_house_searching_re_stk8 1.svg";
+  static const page2 = "$_base/undraw_online_calendar_re_wk3t 1.svg";
+  static const page3 = "$_base/app_overview.png";
+
+  // images
+  static const facebook = "assets/images/Facebook_logo.png";
+  static const google = "$_base/Google_logo.png";
+  static const apple = "$_base/Apple_logo.png";
+
+  static const photgraphy = "$_base/cat-photo.png";
+  static const art = "$_base/cat-art.png";
+  static const music = "$_base/cat-music.png";
+  static const dance = "$_base/cat-dance.png";
+  //studio image
+  static const studio1 = "$_base/studio1.png";
+  static const studio2 = "$_base/studio2.png";
+  static const studio3 = "$_base/studio3.png";
+  static const studio4 = "$_base/studio4.png";
+  static const studio5 = "$_base/studio5.png";
+  static const studio6 = "$_base/studio6.png";
+  static const studio7 = "$_base/studio7.png";
+  static const studio8 = "$_base/studio8.png";
+
+  static const privacyIcon = "$_base/privacy_icon.svg";
+
+  //bottom nav bar items
+  static const home = "$_baseIconPath/home.svg";
+  static const explore = "$_baseIconPath/map-pin.svg";
+  static const favorite = "$_baseIconPath/heart.svg";
+  static const chat = "$_baseIconPath/message-square.svg";
+  static const profile = "$_baseIconPath/user.svg";
+
+  // icons svgs
+  static const tune = "$_baseIconPath/git-pull-request.svg";
+  static const search = "$_baseIconPath/search.svg";
 }
 
-class AnimationAssets{
-  /// Contains all the paths of animations used across the project.
+class AnimationAssets {
+  static const _base = BasePaths.baseAnimationPath;
+  static const splashAnimation = "$_base/splash.riv";
 }
 
 class PlaceholderAssets {
