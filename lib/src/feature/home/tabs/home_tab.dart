@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/feature/booking/booking_view.dart';
 import 'package:flutter_riverpod_base/src/feature/home/near_by_studios_view.dart';
 import 'package:flutter_riverpod_base/src/feature/home/recomended_studios_view.dart';
 import 'package:flutter_riverpod_base/src/feature/home/widgets/app_bar.dart';
@@ -21,23 +22,31 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
-    return  SingleChildScrollView(
-      child: Column(
-        children: [
-    
-          CustomSearchBar(),
-          CategoriesHorizontalListView(),
-           _headerBuilder(title: "Recomended Studio", onTap: () {
-            context.push(RecommendedStudiosView.routePath,extra:AppData.recomendedStudios );
-           }),
-        _recomendationsListView(),
-        _headerBuilder(title: "Nearby Studios", onTap: () {
-            context.push(NearbyStudiosView.routePath,extra:AppData.recomendedStudios );
-        }),
-        _nearbyListView(),
-
-        ]));
+    return SingleChildScrollView(
+        child: Column(children: [
+      const PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight + 10),
+        child: HomeViewAppBar(),
+      ),
+      const CustomSearchBar(),
+      const CategoriesHorizontalListView(),
+      _headerBuilder(
+          title: "Recomended Studio",
+          onTap: () {
+            context.push(RecommendedStudiosView.routePath,
+                extra: AppData.recomendedStudios);
+          }),
+      _recomendationsListView(),
+      _headerBuilder(
+          title: "Nearby Studios",
+          onTap: () {
+            context.push(NearbyStudiosView.routePath,
+                extra: AppData.recomendedStudios);
+          }),
+      _nearbyListView(),
+    ]));
   }
+
   _headerBuilder({required String title, required VoidCallback onTap}) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
@@ -78,7 +87,9 @@ class _HomeTabState extends State<HomeTab> {
           return Container(
             padding:
                 EdgeInsets.only(left: index == 0 ? 22 : 30, top: 2, bottom: 2),
-            child: ItemCardView(studioModel: data),
+            child: ItemCardView(studioModel: data ,onClick: (){
+              context.push(BookingView.routePath);
+            }),
           );
         },
       ),
@@ -87,13 +98,13 @@ class _HomeTabState extends State<HomeTab> {
 
   _nearbyListView() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       width: double.maxFinite,
       child: ListView.builder(
         itemCount: AppData.recomendedStudios.length,
         // scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final data = AppData.recomendedStudios[index];
           return Container(

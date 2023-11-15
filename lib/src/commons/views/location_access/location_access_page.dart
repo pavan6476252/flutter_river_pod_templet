@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/feature/profile/views/complete_profile_info.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
@@ -59,7 +60,7 @@ class LocationAccessPage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    context.push(EditProfileInfoView.routePath);
+                    context.push(CompleteYourProfileInfoView.routePath);
                   }),
               SizedBox(height: 30),
               Text(

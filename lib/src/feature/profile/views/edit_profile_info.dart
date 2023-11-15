@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/feature/home/view/home.dart';
+import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
 import 'package:go_router/go_router.dart';
- 
 
 class EditProfileInfoView extends StatefulWidget {
   static String routePath = '/edit-profile-info';
@@ -23,28 +23,37 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
         padding: const EdgeInsets.all(14),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 54),
-                const Text(
-                  "Complete Your Profile",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _profilePickBuilder(context),
+                      _buildFormFields(),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  "Don’t worry, only you can see your personal data. No one else will be able to see it.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: ColorAssets.lightGray,
-                      fontWeight: FontWeight.w500),
-                ),
-                _profilePickBuilder(context),
-                _buildFormFields(),
-              ],
-            ),
+              ),
+              //
+                Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0),
+                child: customButton(
+                    context: context,
+                    child: Center(
+                        child: Text(
+                      "Update Profile",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: ColorAssets.white),
+                    )),
+                    onTap: () {
+                      context.push(HomeView.routePath);
+                    }),
+              )
+            ],
           ),
         ),
       ),
@@ -71,7 +80,6 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
                     color: ColorAssets.lightBlueGray,
                     borderRadius: BorderRadius.circular(10)),
                 child: TextFormField(
-                  obscureText: true,
                   style: const TextStyle(
                       fontSize: 14, fontWeight: FontWeight.w600),
                   decoration: InputDecoration(
@@ -86,51 +94,8 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
               )
             ],
           ),
-          const SizedBox(height: 30),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Gender",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-              ),
-              Container(
-                  width: double.maxFinite,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  decoration: BoxDecoration(
-                      color: ColorAssets.lightBlueGray,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Expanded(
-                    child: DropdownButton(
-                        value: 'f',
-                        underline: const SizedBox(),
-                        isExpanded: true,
-                        items: [
-                          DropdownMenuItem(
-                              value: 'f',
-                              child: Text(
-                                "Female",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: ColorAssets.blackFaded),
-                              )),
-                          DropdownMenuItem(
-                              value: "m",
-                              child: Text(
-                                "Male",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: ColorAssets.blackFaded),
-                              )),
-                        ],
-                        onChanged: (data) {}),
-                  ))
-            ],
-          ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
+          // phone number
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -146,37 +111,151 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
                     borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   children: [
-                    DropdownButton(
-                      style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: ColorAssets.blackFaded),
-                      underline: SizedBox(),
-                        items: [DropdownMenuItem(child: Text("+91"))],
-                        onChanged: (val) {}),
                     Expanded(
                       child: TextFormField(
-                        obscureText: true,
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w600),
-                        decoration: const InputDecoration(
-                          hintText: "1234567890",
+                        decoration: InputDecoration(
                           border: InputBorder.none,
+                          hintText: "98188456800",
                           hintStyle: TextStyle(
-                            
-                              fontSize: 14, fontWeight: FontWeight.w600),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: ColorAssets.blackFaded),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Change",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: ColorAssets.primaryBlue),
+                        ))
+                  ],
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 20),
+          // email
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Email",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                decoration: BoxDecoration(
+                    color: ColorAssets.lightBlueGray,
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w600),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "example@gmail.com",
+                    hintStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: ColorAssets.lightGray),
+                  ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 20),
+          // gender
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Gender",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              ),
+              Container(
+                height: 54,
+                width: double.maxFinite,
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                decoration: BoxDecoration(
+                  color: ColorAssets.lightBlueGray,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: DropdownButton(
+                  value: 'f',
+                  underline: const SizedBox(),
+                  isExpanded: true,
+                  items: [
+                    DropdownMenuItem(
+                      value: 'f',
+                      child: Text(
+                        "Female",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: ColorAssets.blackFaded,
+                        ),
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "m",
+                      child: Text(
+                        "Male",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: ColorAssets.blackFaded,
                         ),
                       ),
                     ),
                   ],
+                  onChanged: (data) {},
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 67),
-                child: customButton(context: context, child: Center(child: Text("Complete Profile",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,color: ColorAssets.white),)), onTap: (){
-                  context.push(HomeView.routePath);
-                }),
-              )
-
             ],
           ),
+          const SizedBox(height: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "DOB",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              ),
+              
+               
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                decoration: BoxDecoration(
+                    color: ColorAssets.lightBlueGray,
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextFormField(
+            
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w600),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "DD/MM/YY",
+                    hintStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: ColorAssets.blackFaded),
+                  ),
+                ),
+              )
+            ],
+          ), 
+            
+             // button
+            
         ],
       ),
     );
@@ -184,37 +263,32 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
 
   _profilePickBuilder(BuildContext context) {
     return Container(
-      width: 150,
-      height: 150,
-      margin: const EdgeInsets.all(30),
-      decoration: BoxDecoration(
-          color: ColorAssets.lightBlueGray, shape: BoxShape.circle),
-      child: Stack(
-        fit: StackFit.expand,
+      width: 100,
+      height: 130,
+      margin: const EdgeInsets.symmetric(vertical: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Center(
-            child: Icon(
-              Icons.person,
-              size: 80,
-              color: ColorAssets.lightGray,
-            ),
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(ImageAssets.profileImageJpeg),
           ),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.edit,
+                size: 18,
                 color: ColorAssets.primaryBlue,
               ),
-              width: 32,
-              height: 32,
-              child: Icon(
-                Icons.edit_rounded,
-                size: 14,
-                color: ColorAssets.white,
-              ),
-            ),
+              Text(
+                "EDIT",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: ColorAssets.primaryBlue,
+                    fontSize: 18),
+              )
+            ],
           )
         ],
       ),

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/views/help-center/help_center_view.dart';
 import 'package:flutter_riverpod_base/src/commons/views/location_access/location_access_page.dart';
 import 'package:flutter_riverpod_base/src/commons/views/onboarding/on_boarding_page.dart';
+import 'package:flutter_riverpod_base/src/commons/views/privacy-policy/privacy_policicy.dart';
 import 'package:flutter_riverpod_base/src/commons/views/splash.dart';
 import 'package:flutter_riverpod_base/src/feature/auth/login_page.dart';
 import 'package:flutter_riverpod_base/src/feature/auth/sign_up_page.dart';
+import 'package:flutter_riverpod_base/src/feature/booking/booking_view.dart';
+import 'package:flutter_riverpod_base/src/feature/chat/chat_view.dart';
 import 'package:flutter_riverpod_base/src/feature/home/view/home.dart';
-import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart'; 
+import 'package:flutter_riverpod_base/src/feature/profile/views/complete_profile_info.dart';
+import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart';
+import 'package:flutter_riverpod_base/src/feature/search_view/search_view.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/view/settings_view.dart';
 import 'package:flutter_riverpod_base/src/res/data.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +22,36 @@ import '../feature/home/recomended_studios_view.dart';
 final GoRouter router = GoRouter(
   initialLocation: SplashView.routePath,
   routes: [
+    GoRoute(
+      path: BookingView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return const BookingView();
+      },
+    ),
+    GoRoute(
+      path: ChatView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return   ChatView(uid: "",);
+      },
+    ),
+    GoRoute(
+      path: PrivacyPolicyView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return const PrivacyPolicyView();
+      },
+    ),
+    GoRoute(
+      path: SearchView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return const SearchView();
+      },
+    ),
+    GoRoute(
+      path: HelpCenterView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return const HelpCenterView();
+      },
+    ),
     GoRoute(
       path: SplashView.routePath,
       builder: (BuildContext context, GoRouterState state) {
@@ -40,6 +77,12 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
+      path: CompleteYourProfileInfoView.routePath,
+      builder: (context, state) {
+        return const CompleteYourProfileInfoView();
+      },
+    ),
+    GoRoute(
       path: EditProfileInfoView.routePath,
       builder: (context, state) {
         return const EditProfileInfoView();
@@ -55,6 +98,12 @@ final GoRouter router = GoRouter(
       path: HomeView.routePath,
       builder: (BuildContext context, GoRouterState state) {
         return const HomeView();
+      },
+    ),
+    GoRoute(
+      path: SettingsView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return SettingsView();
       },
     ),
     GoRoute(

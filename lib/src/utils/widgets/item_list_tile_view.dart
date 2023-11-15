@@ -58,7 +58,7 @@ class _ItemListTileViewState extends State<ItemListTileView> {
                               ? Icons.favorite
                               : Icons.favorite_border_rounded,
                           color: isLiked
-                              ? ColorAssets.redAccent
+                              ? ColorAssets.primaryBlue
                               : ColorAssets.primaryBlue,
                           size: 16,
                         ),

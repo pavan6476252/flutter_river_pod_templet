@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/feature/home/tabs/chat_tab.dart';
+import 'package:flutter_riverpod_base/src/feature/home/tabs/explore_tab.dart';
+import 'package:flutter_riverpod_base/src/feature/home/tabs/favorites_tab.dart';
 import 'package:flutter_riverpod_base/src/feature/home/tabs/home_tab.dart';
+import 'package:flutter_riverpod_base/src/feature/home/tabs/profile_tab.dart';
 import 'package:flutter_riverpod_base/src/feature/home/widgets/app_bar.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
@@ -20,10 +24,6 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight + 10),
-          child: HomeViewAppBar(),
-        ),
         backgroundColor: ColorAssets.white,
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
             ],
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
-          height: 82, // Adjust the height as needed
+          height: 82,  
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -50,7 +50,11 @@ class _HomeViewState extends State<HomeView> {
         body: SafeArea(
             child: [
           HomeTab(),
-        ][0]),
+          ExploreTab(),
+          FavoritesTab(),
+          ChatTab(),
+          ProfileTab(),
+        ][_currentIndex]),
       ),
     );
   }

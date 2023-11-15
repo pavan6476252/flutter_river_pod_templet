@@ -23,6 +23,8 @@ dependencies:
   rive: ^0.12.3
   smooth_page_indicator: ^1.1.0
   flutter_svg: ^2.0.9
+  flutter_rating_bar: ^4.0.1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
