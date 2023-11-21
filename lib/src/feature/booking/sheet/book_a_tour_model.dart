@@ -3,7 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod_base/src/feature/booking/views/book_tour_view.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
-import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
+ 
+import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/custom_tab_builder.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -237,7 +238,10 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 40),
                     padding: EdgeInsets.only(left: 4),
-                    decoration: BoxDecoration(border: Border(left: BorderSide(color: ColorAssets.primaryBlue,width: 3))),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            left: BorderSide(
+                                color: ColorAssets.primaryBlue, width: 3))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -252,7 +256,6 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                           "Request Schedule",
                           style: TextStyle(
                               fontSize: 13,
-
                               fontWeight: FontWeight.w600,
                               color: ColorAssets.primaryBlue),
                         ),
@@ -276,23 +279,10 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(20))),
             child: Center(
-              child: customTextButton(
-                  context: context,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Schedule Tour",
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: ColorAssets.white),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
+              child: CustomTextButton(
+                  text: "Schedule Tour",
+                  // textAlign: TextAlign.center,
+                  ontap: () {
                     //ontap
                     context.push(BookingTourView.routePath);
                   }),

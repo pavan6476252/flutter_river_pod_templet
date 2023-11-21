@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomInputField extends StatelessWidget {
-  const CustomInputField({super.key});
+class StudioAppBar extends StatelessWidget {
+  const StudioAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

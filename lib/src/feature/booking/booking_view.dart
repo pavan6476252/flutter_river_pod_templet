@@ -5,7 +5,7 @@ import 'package:flutter_riverpod_base/src/feature/booking/tabs/gallery_tab.dart'
 import 'package:flutter_riverpod_base/src/feature/booking/tabs/review_tab.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
-import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
+ 
 import 'package:flutter_riverpod_base/src/utils/widgets/custom_tab_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

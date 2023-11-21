@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/feature/booking/views/tour_request_view.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
-import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
+ 
+import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../home/view/home.dart';
@@ -92,23 +93,10 @@ class _BookingTourViewState extends State<BookingTourView> {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(20))),
             child: Center(
-              child: customTextButton(
-                  context: context,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Continue",
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: ColorAssets.white),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
+              child: CustomTextButton(
+                  text: "Continue",
+                  
+                  ontap: () {
                     //ontap
                     context.push(TourRequestView.routePath);
                   }),

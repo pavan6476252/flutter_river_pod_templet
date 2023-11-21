@@ -20,7 +20,7 @@ class CustomTextButton extends StatelessWidget {
       onTap: ontap,
       child: Container(
         width: double.maxFinite,
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: bgColor == null ? ColorAssets.primaryBlue : bgColor,

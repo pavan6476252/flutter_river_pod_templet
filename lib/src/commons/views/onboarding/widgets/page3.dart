@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod_base/src/feature/auth/login_page.dart';
 import 'package:flutter_riverpod_base/src/feature/auth/sign_up_page.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
-import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
+ 
+import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -84,17 +85,9 @@ class Page3 extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 30),
-                      customTextButton(
-                          context: context,
-                          child: Center(
-                            child: Text(
-                              "Let’s Get Started",
-                              style: textTheme.bodyMedium!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorAssets.white),
-                            ),
-                          ),
-                          onTap: () {
+                      CustomTextButton(
+                          text: "Let’s Get Started",
+                          ontap: () {
                             context.push(SignUpPage.routePath);
                           }),
                       const SizedBox(height: 30),

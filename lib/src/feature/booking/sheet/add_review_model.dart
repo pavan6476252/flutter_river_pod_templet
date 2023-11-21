@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
-import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
+ 
+import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/custom_tab_builder.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -180,30 +181,17 @@ class _AddReviewModelState extends State<AddReviewModel> {
 
           Container(
             height: 82,
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             decoration: BoxDecoration(
-              color: ColorAssets.white,
-              boxShadow: [
-              BoxShadow(color: ColorAssets.lightGray, blurRadius: 3)
-            ], borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+                color: ColorAssets.white,
+                boxShadow: [
+                  BoxShadow(color: ColorAssets.lightGray, blurRadius: 3)
+                ],
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
             child: Center(
-              child: customTextButton(
-                  context: context,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Submit",
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: ColorAssets.white),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
+              child: CustomTextButton(
+                  text: "Submit",
+                  ontap: () {
                     //ontap
                   }),
             ),
