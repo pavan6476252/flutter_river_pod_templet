@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/commons/views/help-center/help_center_view.dart';
+import 'package:flutter_riverpod_base/src/commons/views/privacy-policy/privacy_policicy.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart';
 import 'package:flutter_riverpod_base/src/feature/settings/view/settings_view.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
@@ -143,7 +144,9 @@ class _ProfileTabState extends State<ProfileTab> {
                 Icons.arrow_forward_ios_rounded,
                 color: ColorAssets.primaryBlue,
               ),
-              onTap: () {}),
+              onTap: () {
+                context.push(PrivacyPolicyView.routePath);
+              }),
           _optionBuilder(
               context: context,
               leadingIcon: SvgPicture.asset(ImageAssets.helpcircle),

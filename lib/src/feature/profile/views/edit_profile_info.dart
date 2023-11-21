@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/feature/home/view/home.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
+import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
 import 'package:go_router/go_router.dart';
 
@@ -37,19 +38,11 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
                 ),
               ),
               //
-                Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 0),
-                child: customButton(
-                    context: context,
-                    child: Center(
-                        child: Text(
-                      "Update Profile",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: ColorAssets.white),
-                    )),
-                    onTap: () {
+                child: CustomTextButton(
+                    text: "Update Profile",
+                    ontap: () {
                       context.push(HomeView.routePath);
                     }),
               )
@@ -229,8 +222,6 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
                 "DOB",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               ),
-              
-               
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -238,7 +229,6 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
                     color: ColorAssets.lightBlueGray,
                     borderRadius: BorderRadius.circular(10)),
                 child: TextFormField(
-            
                   style: const TextStyle(
                       fontSize: 14, fontWeight: FontWeight.w600),
                   decoration: InputDecoration(
@@ -252,10 +242,9 @@ class _EditProfileInfoViewState extends State<EditProfileInfoView> {
                 ),
               )
             ],
-          ), 
-            
-             // button
-            
+          ),
+
+          // button
         ],
       ),
     );

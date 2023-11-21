@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/feature/home/view/home.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
+import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,10 +11,12 @@ class CompleteYourProfileInfoView extends StatefulWidget {
   const CompleteYourProfileInfoView({super.key});
 
   @override
-  State<CompleteYourProfileInfoView> createState() => _CompleteYourProfileInfoViewState();
+  State<CompleteYourProfileInfoView> createState() =>
+      _CompleteYourProfileInfoViewState();
 }
 
-class _CompleteYourProfileInfoViewState extends State<CompleteYourProfileInfoView> {
+class _CompleteYourProfileInfoViewState
+    extends State<CompleteYourProfileInfoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,50 +95,48 @@ class _CompleteYourProfileInfoViewState extends State<CompleteYourProfileInfoVie
                 "Gender",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               ),
-       
-    Container(
-      height: 54,
-      width: double.maxFinite,
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      decoration: BoxDecoration(
-        color: ColorAssets.lightBlueGray,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: DropdownButton(
-        value: 'f',
-        underline: const SizedBox(),
-        isExpanded: true,
-        items: [
-          DropdownMenuItem(
-            value: 'f',
-            child: Text(
-              "Female",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: ColorAssets.blackFaded,
+              Container(
+                height: 54,
+                width: double.maxFinite,
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                decoration: BoxDecoration(
+                  color: ColorAssets.lightBlueGray,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: DropdownButton(
+                  value: 'f',
+                  underline: const SizedBox(),
+                  isExpanded: true,
+                  items: [
+                    DropdownMenuItem(
+                      value: 'f',
+                      child: Text(
+                        "Female",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: ColorAssets.blackFaded,
+                        ),
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "m",
+                      child: Text(
+                        "Male",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: ColorAssets.blackFaded,
+                        ),
+                      ),
+                    ),
+                  ],
+                  onChanged: (data) {},
+                ),
               ),
-            ),
+            ],
           ),
-          DropdownMenuItem(
-            value: "m",
-            child: Text(
-              "Male",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: ColorAssets.blackFaded,
-              ),
-            ),
-          ),
-        ],
-        onChanged: (data) {},
-      ),
-    ),
-  ],
-),
-
           const SizedBox(height: 30),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,9 +161,12 @@ class _CompleteYourProfileInfoViewState extends State<CompleteYourProfileInfoVie
                         underline: const SizedBox(),
                         items: [const DropdownMenuItem(child: Text("+91"))],
                         onChanged: (val) {}),
-                 Container(
-                  margin: const EdgeInsets.only(left: 0,right: 4),
-                  height: 20,width: 2,color: ColorAssets.black,),
+                    Container(
+                      margin: const EdgeInsets.only(left: 0, right: 4),
+                      height: 20,
+                      width: 2,
+                      color: ColorAssets.black,
+                    ),
                     Expanded(
                       child: TextFormField(
                         keyboardType: TextInputType.phone,
@@ -181,17 +185,10 @@ class _CompleteYourProfileInfoViewState extends State<CompleteYourProfileInfoVie
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 67),
-                child: customButton(
-                    context: context,
-                    child: Center(
-                        child: Text(
-                      "Complete Profile",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: ColorAssets.white),
-                    )),
-                    onTap: () {
+                child: CustomTextButton(
+                    bgColor: ColorAssets.primaryBlue,
+                    text: "Complete Profile",
+                    ontap: () {
                       context.push(HomeView.routePath);
                     }),
               )

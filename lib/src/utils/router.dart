@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/views/filters/filter_view.dart';
 import 'package:flutter_riverpod_base/src/commons/views/help-center/help_center_view.dart';
 import 'package:flutter_riverpod_base/src/commons/views/location_access/location_access_page.dart';
+import 'package:flutter_riverpod_base/src/commons/views/notification/notification_view.dart';
 import 'package:flutter_riverpod_base/src/commons/views/onboarding/on_boarding_page.dart';
 import 'package:flutter_riverpod_base/src/commons/views/privacy-policy/privacy_policicy.dart';
 import 'package:flutter_riverpod_base/src/commons/views/splash.dart';
@@ -16,12 +18,38 @@ import 'package:flutter_riverpod_base/src/feature/settings/view/settings_view.da
 import 'package:flutter_riverpod_base/src/res/data.dart';
 import 'package:go_router/go_router.dart';
 
+import '../feature/booking/views/book_tour_view.dart';
+import '../feature/booking/views/tour_request_view.dart';
 import '../feature/home/near_by_studios_view.dart';
 import '../feature/home/recomended_studios_view.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: SplashView.routePath,
   routes: [
+    GoRoute(
+      path: NotificationView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return  NotificationView();
+      },
+    ),
+    GoRoute(
+      path: FilterView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return const FilterView();
+      },
+    ),
+    GoRoute(
+      path: TourRequestView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return const TourRequestView();
+      },
+    ),
+    GoRoute(
+      path: BookingTourView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return const BookingTourView();
+      },
+    ),
     GoRoute(
       path: BookingView.routePath,
       builder: (BuildContext context, GoRouterState state) {

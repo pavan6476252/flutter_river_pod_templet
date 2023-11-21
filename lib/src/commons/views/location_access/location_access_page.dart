@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/complete_profile_info.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
+import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
 import 'package:go_router/go_router.dart';
 
@@ -48,18 +49,9 @@ class LocationAccessPage extends StatelessWidget {
                     color: ColorAssets.lightGray),
               ),
               SizedBox(height: 30),
-              customButton(
-                  context: context,
-                  child: Center(
-                    child: Text(
-                      "Allow Location Access",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: ColorAssets.white),
-                    ),
-                  ),
-                  onTap: () {
+              CustomTextButton(
+                  text: "Allow Location Accss",
+                  ontap: () {
                     context.push(CompleteYourProfileInfoView.routePath);
                   }),
               SizedBox(height: 30),

@@ -31,7 +31,7 @@ class SignUpPage extends StatelessWidget {
                   _headerBuilder(
                       title: "Sign Up", subtitle: "Create Your Account"),
                   _formFields(),
-                  customButton(
+                  customTextButton(
                       context: context,
                       child: Center(
                           child: Text(

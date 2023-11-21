@@ -187,7 +187,7 @@ class _AddReviewModelState extends State<AddReviewModel> {
               BoxShadow(color: ColorAssets.lightGray, blurRadius: 3)
             ], borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
             child: Center(
-              child: customButton(
+              child: customTextButton(
                   context: context,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,

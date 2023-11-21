@@ -84,7 +84,7 @@ class Page3 extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 30),
-                      customButton(
+                      customTextButton(
                           context: context,
                           child: Center(
                             child: Text(

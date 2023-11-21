@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
                       title: "Login",
                       subtitle: "Hi! Welcome back, nice to see you"),
                   _formFields(),
-                  customButton(
+                  customTextButton(
                       context: context,
                       child: Center(
                           child: Text(

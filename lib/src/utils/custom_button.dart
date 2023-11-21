@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../res/colors.dart';
 
-InkWell customButton({required BuildContext context,required Widget child,required VoidCallback onTap})   {
+InkWell customTextButton({required BuildContext context,required Widget child,required VoidCallback onTap})   {
   return InkWell(
     onTap: onTap,
     child: Container(

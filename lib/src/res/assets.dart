@@ -41,10 +41,13 @@ class ImageAssets {
   static const smile = "$_baseIconPath/smile.svg";
   static const link = "$_baseIconPath/link.svg";
   static const camera = "$_baseIconPath/camera.svg";
-  
+
   static const mapPoints = "$_baseIconPath/map-points.svg";
 
-
+  static const successCheckBox = "$_baseIconPath/suceess-checkbox.svg";
+  static const starSvg = "$_baseIconPath/star.svg";
+  static const discountSvg = "$_baseIconPath/discount.svg";
+  static const notificationSvg = "$_baseIconPath/notification.svg";
 
   // images
   static const facebook = "assets/images/Facebook_logo.png";

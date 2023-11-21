@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod_base/src/feature/booking/views/book_tour_view.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_riverpod_base/src/utils/custom_button.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/custom_tab_builder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class TourBookingModelSheet extends StatefulWidget {
@@ -274,7 +276,7 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(20))),
             child: Center(
-              child: customButton(
+              child: customTextButton(
                   context: context,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -292,6 +294,7 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                   ),
                   onTap: () {
                     //ontap
+                    context.push(BookingTourView.routePath);
                   }),
             ),
           ),
