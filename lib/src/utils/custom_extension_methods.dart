@@ -24,3 +24,12 @@ extension PoweredText on Text {
     );
   }
 }
+
+extension CustomContainer on Container {
+  Widget onTap(VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: this,
+    );
+  }
+}

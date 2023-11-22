@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/widgets/custom_list_tile.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/widgets/delete_account_alert.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -25,13 +27,8 @@ class _SettingsViewState extends State<SettingsView> {
           SliverPersistentHeader(
               pinned: true, floating: true, delegate: SliverHomeHeader()),
           SliverList(
-              delegate: SliverChildListDelegate([
-            SizedBox(height: 20),
-            // profile
-
-            // options
-            _optionBuilder(
-                context: context,
+            delegate: SliverChildListDelegate([
+              CustomListTile(
                 leadingIcon: Icon(
                   Icons.notifications_none_sharp,
                   color: ColorAssets.primaryBlue,
@@ -39,15 +36,16 @@ class _SettingsViewState extends State<SettingsView> {
                 title: Text(
                   "Notification Settings",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                      color: ColorAssets.blackFaded),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    color: ColorAssets.blackFaded,
+                  ),
                 ),
                 tailingIcon: Icon(Icons.chevron_right_rounded,
                     color: ColorAssets.primaryBlue),
-                onTap: () {}),
-            _optionBuilder(
-                context: context,
+                onTap: () {},
+              ),
+              CustomListTile(
                 leadingIcon: SvgPicture.asset(
                   ImageAssets.key,
                   colorFilter: ColorFilter.mode(
@@ -56,16 +54,16 @@ class _SettingsViewState extends State<SettingsView> {
                 title: Text(
                   "Password Manager",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                      color: ColorAssets.blackFaded),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    color: ColorAssets.blackFaded,
+                  ),
                 ),
                 tailingIcon: Icon(Icons.chevron_right_rounded,
                     color: ColorAssets.primaryBlue),
-                onTap: () {}),
-
-            _optionBuilder(
-                context: context,
+                onTap: () {},
+              ),
+              CustomListTile(
                 leadingIcon: SvgPicture.asset(
                   ImageAssets.trash2,
                   colorFilter: ColorFilter.mode(
@@ -74,41 +72,31 @@ class _SettingsViewState extends State<SettingsView> {
                 title: Text(
                   "Delete Account",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    color: ColorAssets.blackFaded,
+                  ),
                 ),
-                onTap: () {},
-                enableBottom: false),
-          ]))
+                onTap: () {
+                  _showAccountDeleteAlert(context);
+                },
+                enableBottom: false,
+                tailingIcon: Icon(Icons.chevron_right_rounded,
+                    color: ColorAssets.primaryBlue),
+              ),
+            ]),
+          ),
         ],
       ),
     );
   }
 
-  _optionBuilder({
-    required VoidCallback onTap,
-    required BuildContext context,
-    required Widget leadingIcon,
-    required Widget title,
-    Widget? tailingIcon,
-    bool enableBottom = true,
-  }) {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-            border: enableBottom
-                ? Border(
-                    bottom: BorderSide(
-                        color: ColorAssets.lightGray.withOpacity(0.3),
-                        width: 0.5))
-                : null),
-        child: ListTile(
-          contentPadding: EdgeInsets.symmetric(vertical: 5),
-          leading: leadingIcon,
-          title: title,
-          trailing: tailingIcon,
-        ));
+  void _showAccountDeleteAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return DeleteAccountAlertModel();
+        });
   }
 }
 
@@ -127,7 +115,7 @@ class SliverHomeHeader extends SliverPersistentHeaderDelegate {
       ),
       centerTitle: true,
       leading: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: GestureDetector(
           onTap: () {
             context.pop();
