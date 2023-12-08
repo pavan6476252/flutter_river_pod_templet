@@ -14,6 +14,8 @@ class AuthenticationPageHeaderBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 30),
       width: double.maxFinite,
@@ -23,19 +25,22 @@ class AuthenticationPageHeaderBuilder extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: textTheme.titleLarge!.copyWith(
                 fontSize: 28,
                 fontWeight: FontWeight.w600,
-                color: ColorAssets.black),
+                // color: ColorAssets.black,
+                ),
           ),
           SizedBox(height: 14),
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: textTheme.titleLarge!.copyWith(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: ColorAssets.lightGray),
+                // color: ColorAssets.lightGray
+                color: Theme.of(context).colorScheme.onBackground
+                ),
           )
         ],
       ),

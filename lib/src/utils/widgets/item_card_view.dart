@@ -22,6 +22,8 @@ class _ItemCardViewState extends State<ItemCardView> {
 
   @override
   Widget build(BuildContext context) {
+        final color = Theme.of(context).colorScheme;
+
     return GestureDetector(
       onTap: widget.onClick,
       child: Container(
@@ -57,14 +59,14 @@ class _ItemCardViewState extends State<ItemCardView> {
                         child: CircleAvatar(
                           radius: 12,
                           backgroundColor:
-                              ColorAssets.lightBlueGray.withOpacity(0.6),
+                               color.secondary.withOpacity(0.6),
                           child: Icon(
                             isLiked
                                 ? Icons.favorite
                                 : Icons.favorite_border_rounded,
                             color: isLiked
-                                ? ColorAssets.primaryBlue
-                                : ColorAssets.primaryBlue,
+                                ?  color.secondary
+                                :  color.secondary,
                             size: 16,
                           ),
                         ),
@@ -80,7 +82,7 @@ class _ItemCardViewState extends State<ItemCardView> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                      color: ColorAssets.lightBlueGray,
+                      color:  color.secondary,
                       borderRadius: BorderRadius.circular(10)),
                   child: Text(
                     widget.studioModel.tag,

@@ -11,11 +11,13 @@ class CustomTagBuilder extends StatelessWidget {
   final bool? isActive;
   @override
   Widget build(BuildContext context) {
+        final color = Theme.of(context).colorScheme;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: ColorAssets.lightBlueGray,
+            color:  color.secondary,
             borderRadius: BorderRadius.circular(6)),
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
         child: tag == null
@@ -25,7 +27,7 @@ class CustomTagBuilder extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 12,
-                    color: ColorAssets.primaryBlue),
+                    color: color.primary),
               ),
       ),
     );

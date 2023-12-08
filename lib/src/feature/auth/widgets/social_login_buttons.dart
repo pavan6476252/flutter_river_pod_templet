@@ -14,6 +14,8 @@ class SocialAuthenticationButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        TextTheme textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Column(
@@ -29,10 +31,10 @@ class SocialAuthenticationButtons extends StatelessWidget {
                 padding: const EdgeInsets.all(6.0),
                 child: Text(
                   "or Sign in with",
-                  style: TextStyle(
+                  style: textTheme.bodyMedium!.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: ColorAssets.lightGray),
+                     ),
                 ),
               ),
               Expanded(

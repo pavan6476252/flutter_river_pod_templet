@@ -18,10 +18,11 @@ class CompleteYourProfileInfoView extends StatefulWidget {
 
 class _CompleteYourProfileInfoViewState
     extends State<CompleteYourProfileInfoView> {
- 
-      
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    final color = Theme.of(context).colorScheme;
+
     return Scaffold(
       backgroundColor: ColorAssets.white,
       body: Padding(
@@ -33,18 +34,22 @@ class _CompleteYourProfileInfoViewState
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 54),
-                const Text(
+                Text(
                   "Complete Your Profile",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                  style: textTheme.titleLarge!.copyWith(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    // color: ColorAssets.black,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   "Don’t worry, only you can see your personal data. No one else will be able to see it.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: textTheme.titleMedium!.copyWith(
                       fontSize: 14,
-                      color: ColorAssets.lightGray,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.w600,
+                      color: color.tertiary),
                 ),
                 _profilePickBuilder(context),
                 ProfileFormFields(),
@@ -57,12 +62,14 @@ class _CompleteYourProfileInfoViewState
   }
 
   _profilePickBuilder(BuildContext context) {
+        final color = Theme.of(context).colorScheme;
+
     return Container(
       width: 150,
       height: 150,
       margin: const EdgeInsets.all(30),
       decoration: BoxDecoration(
-          color: ColorAssets.lightBlueGray, shape: BoxShape.circle),
+          color:  color.secondary, shape: BoxShape.circle),
       child: Stack(
         fit: StackFit.expand,
         children: [

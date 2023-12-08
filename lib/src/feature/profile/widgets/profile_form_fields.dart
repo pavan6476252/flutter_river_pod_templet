@@ -24,9 +24,11 @@ class ProfileFormFields extends StatelessWidget {
             child: DropdownButton(
               value: 'f',
               underline: const SizedBox(),
+              
               isExpanded: true,
               items: [
                 DropdownMenuItem(
+                  
                   value: 'f',
                   child: Text(
                     "Female",
@@ -57,6 +59,7 @@ class ProfileFormFields extends StatelessWidget {
             child: Row(
               children: [
                 DropdownButton(
+                  icon: Icon(Icons.keyboard_arrow_down_outlined),
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -67,7 +70,7 @@ class ProfileFormFields extends StatelessWidget {
                   onChanged: (val) {},
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 0, right: 4),
+                  margin: const EdgeInsets.only(left: 3, right: 5),
                   height: 20,
                   width: 2,
                   color: ColorAssets.black,

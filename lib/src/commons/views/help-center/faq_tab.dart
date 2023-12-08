@@ -13,6 +13,8 @@ class _FaqTabState extends State<FaqTab> {
   List<String> categories = ["All", "Services", "General", "Account", "hello"];
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     int isActive = 0;
     return SingleChildScrollView(
       child: Column(
@@ -33,8 +35,8 @@ class _FaqTabState extends State<FaqTab> {
                       const EdgeInsets.symmetric(horizontal: 17, vertical: 6),
                   decoration: BoxDecoration(
                       color: isActive == index
-                          ? ColorAssets.primaryBlue
-                          : ColorAssets.lightBlueGray,
+                          ? color.primary
+                          : color.secondary,
                       borderRadius: BorderRadius.circular(20)),
                   child: Text(
                     categories[index],
@@ -42,8 +44,8 @@ class _FaqTabState extends State<FaqTab> {
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         color: isActive == index
-                            ? ColorAssets.white
-                            : ColorAssets.lightGray),
+                            ? color.background
+                            : color.onBackground),
                   ),
                 );
               },
@@ -88,14 +90,16 @@ class CustomExpadedTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       decoration: BoxDecoration(
-          color: ColorAssets.white,
+          color: color.background,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-                color: ColorAssets.lightBlueGray.withOpacity(0.5),
+                color:  color.secondary.withOpacity(0.5),
                 spreadRadius: 3)
           ]),
       child: ExpansionTile(
@@ -104,9 +108,9 @@ class CustomExpadedTile extends StatelessWidget {
         title: Text(
           title,
           style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              color: ColorAssets.blackFaded),
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
         ),
         childrenPadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
         children: [
@@ -114,9 +118,8 @@ class CustomExpadedTile extends StatelessWidget {
           Text(
             description,
             style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: ColorAssets.blackFaded),
+              fontWeight: FontWeight.w400,
+            ),
           )
         ],
       ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/feature/booking/booking_view.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_riverpod_base/src/res/data.dart';
+import 'package:flutter_riverpod_base/src/utils/custom_extension_methods.dart';
+import 'package:go_router/go_router.dart';
 
 class ItemListTileView extends StatefulWidget {
   final StudioModel studioModel;
@@ -20,13 +23,15 @@ class _ItemListTileViewState extends State<ItemListTileView> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
     return Container(
       width: double.maxFinite,
       height: 124,
       decoration: BoxDecoration(
-          boxShadow: [const BoxShadow(color: Colors.grey, blurRadius: 2)],
-          borderRadius: BorderRadius.circular(6),
-          color: ColorAssets.white),
+        boxShadow: [const BoxShadow(color: Colors.grey, blurRadius: 2)],
+        borderRadius: BorderRadius.circular(6),
+        color: color.background,
+      ),
       padding: const EdgeInsets.all(10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,14 +57,12 @@ class _ItemListTileViewState extends State<ItemListTileView> {
                       child: CircleAvatar(
                         radius: 12,
                         backgroundColor:
-                            ColorAssets.lightBlueGray.withOpacity(0.6),
+                             color.secondary.withOpacity(0.6),
                         child: Icon(
                           isLiked
                               ? Icons.favorite
                               : Icons.favorite_border_rounded,
-                          color: isLiked
-                              ? ColorAssets.primaryBlue
-                              : ColorAssets.primaryBlue,
+                          color: isLiked ? color.primary : color.primary,
                           size: 16,
                         ),
                       ),
@@ -82,14 +85,14 @@ class _ItemListTileViewState extends State<ItemListTileView> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                          color: ColorAssets.lightBlueGray,
+                          color:  color.secondary,
                           borderRadius: BorderRadius.circular(10)),
                       child: Text(
                         widget.studioModel.tag,
                         style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
-                            color: ColorAssets.primaryBlue),
+                            color: color.primary),
                       ),
                     ),
                     Row(
@@ -116,24 +119,26 @@ class _ItemListTileViewState extends State<ItemListTileView> {
                 Text(
                   widget.studioModel.title,
                   style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: ColorAssets.blackFaded),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    // color: ColorAssets.blackFaded,
+                  ),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
                       Icons.location_on,
-                      color: ColorAssets.lightGray,
+                      // color: ColorAssets.lightGray,
                       size: 12,
                     ),
                     Text(
                       widget.studioModel.location,
                       style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: ColorAssets.lightGray),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        // color: ColorAssets.lightGray,
+                      ),
                     ),
                   ],
                 ),
@@ -143,14 +148,15 @@ class _ItemListTileViewState extends State<ItemListTileView> {
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: ColorAssets.primaryBlue),
+                            color: color.primary),
                         children: [
                       TextSpan(
                         text: " /month",
                         style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: ColorAssets.lightGray),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: ColorAssets.lightGray,
+                        ),
                       )
                     ])),
               ],
@@ -158,6 +164,8 @@ class _ItemListTileViewState extends State<ItemListTileView> {
           ),
         ],
       ),
-    );
+    ).onTap(() {
+      context.push(BookingView.routePath);
+    });
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod_base/src/feature/auth/login_page.dart';
 import 'package:flutter_riverpod_base/src/feature/auth/sign_up_page.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
- 
+
 import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +17,8 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    final color = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: Stack(
@@ -34,20 +36,6 @@ class Page3 extends StatelessWidget {
           Column(
             children: [
               Expanded(child: SizedBox()),
-              // Container(
-              //     height: 10,
-              //     width: double.maxFinite,
-              //     decoration: BoxDecoration(
-              //       border: Border(top: BorderSide(color: ColorAssets.lightGray.withOpacity(0.1) )),
-              //       boxShadow: [
-              //         BoxShadow(
-              //           offset: Offset(0, -10),
-              //           blurRadius: 12,
-              //           spreadRadius: 0,
-              //           color: Color.fromRGBO(0, 0, 0, 0.219),
-              //         ),
-              //       ],
-              //     )),
               Expanded(
                   child: Material(
                 elevation: 15,
@@ -62,16 +50,15 @@ class Page3 extends StatelessWidget {
                             children: [
                               TextSpan(
                                   text: " and Find Your\n",
-                                  style: textTheme.titleLarge!.copyWith(
-                                      color: ColorAssets.black, fontSize: 26)),
+                                  style: textTheme.titleLarge!
+                                      .copyWith(fontSize: 26)),
                               TextSpan(
                                   text: "Perfect Studio",
                                   style: textTheme.titleLarge!.copyWith(
-                                      color: ColorAssets.primaryBlue,
-                                      fontSize: 26)),
+                                      color: color.primary, fontSize: 26)),
                             ],
-                            style: textTheme.titleLarge!.copyWith(
-                                color: ColorAssets.primaryBlue, fontSize: 26)),
+                            style: textTheme.titleLarge!
+                                .copyWith(color: color.primary, fontSize: 26)),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 30),
@@ -79,10 +66,10 @@ class Page3 extends StatelessWidget {
                       Text(
                         "App to search and discover the most suitable place for you to stay",
                         textAlign: TextAlign.center,
-                        style: textTheme.bodyMedium!.copyWith(
-                            color: ColorAssets.lightGray,
+                        style: textTheme.titleMedium!.copyWith(
                             fontSize: 18,
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w600,
+                            color: color.tertiary),
                       ),
                       const SizedBox(height: 30),
                       CustomTextButton(
@@ -94,15 +81,13 @@ class Page3 extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           text: "Already have an account? ",
-                          style: textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: ColorAssets.black,
-                              fontSize: 20),
+                          style: textTheme.titleLarge!.copyWith(
+                              fontWeight: FontWeight.w600, fontSize: 20),
                           children: [
                             TextSpan(
                               text: "Sign In",
-                              style: textTheme.titleLarge!.copyWith(
-                                  color: ColorAssets.primaryBlue, fontSize: 20),
+                              style: textTheme.titleLarge!
+                                  .copyWith(color: color.primary, fontSize: 20),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   context.push(LoginPage.routePath);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/widgets/simple_app_bar.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
- 
+
 import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/custon_dash_separated_divider.dart';
 import 'package:go_router/go_router.dart';
@@ -20,41 +21,10 @@ class _TourRequestViewState extends State<TourRequestView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorAssets.white,
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          "Tour Request",
-          style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-              color: ColorAssets.blackFaded),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Container(
-            width: 20,
-            height: 20,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: ColorAssets.white,
-                boxShadow: [
-                  BoxShadow(
-                      color: ColorAssets.lightGray.withOpacity(0.5),
-                      blurRadius: 1)
-                ]),
-            child: GestureDetector(
-              onTap: () {
-                context.pop();
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                size: 20,
-              ),
-            ),
-          ),
-        ),
+      appBar: SimpleAppBar(
+        title: "Tour Request",
+        leadingCallback: () => Navigator.pop(context),
+        
       ),
       body: Column(
         children: [
@@ -137,6 +107,8 @@ class _TourRequestViewState extends State<TourRequestView> {
   }
 
   _buildAgentsContactTile(BuildContext context) {
+        final color = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -154,7 +126,8 @@ class _TourRequestViewState extends State<TourRequestView> {
         ListTile(
           contentPadding: EdgeInsets.symmetric(vertical: 0),
           leading: CircleAvatar(
-            radius: 20,
+            backgroundColor:  color.secondary,
+             radius: 20,
             backgroundImage: AssetImage(ImageAssets.profileImageJpeg),
           ),
           title: Text(

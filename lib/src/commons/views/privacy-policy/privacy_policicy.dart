@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/widgets/simple_app_bar.dart';
 
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:go_router/go_router.dart';
@@ -17,33 +18,13 @@ class _PrivacyPolicyViewState extends State<PrivacyPolicyView> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorAssets.white,
-        appBar: AppBar(
-            forceMaterialTransparency: true,
-            leading: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                color: ColorAssets.white,
-                boxShadow: [
-                  BoxShadow(
-                      color: ColorAssets.lightGray.withOpacity(0.5),
-                      blurRadius: 2)
-                ],
-                shape: BoxShape.circle,
-              ),
-              child: GestureDetector(
-                  onTap: () {
-                    context.pop();
-                  },
-                  child: const Icon(Icons.arrow_back)),
-            ),
-            centerTitle: true,
-            title: const Text(
-              "Privacy Policy",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-            )),
-        body: Padding(
+        appBar: 
+        SimpleAppBar(
+  title: "Privacy Policy",
+  leadingCallback: () => Navigator.pop(context),
+),
+
+         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: SingleChildScrollView(
             child: Column(

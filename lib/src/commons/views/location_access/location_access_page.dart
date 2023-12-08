@@ -15,6 +15,8 @@ class LocationAccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     return Scaffold(
       backgroundColor: ColorAssets.white,
       body: Padding(
@@ -25,19 +27,19 @@ class LocationAccessPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(35),
               decoration: BoxDecoration(
-                  color: ColorAssets.lightBlueGray, shape: BoxShape.circle),
+                  color:  color.secondary, shape: BoxShape.circle),
               child: Icon(
                 Icons.location_on_rounded,
                 size: 80,
-                color: ColorAssets.primaryBlue,
+                color: color.primary,
               ),
             ),
             Text(
               "What is Your Location?",
               style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w600,
-                  color: ColorAssets.black),
+                fontSize: 26,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             Text(
               "We need to know your location in order to suggest nearby  services.",
@@ -45,10 +47,10 @@ class LocationAccessPage extends StatelessWidget {
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: ColorAssets.lightGray),
+                  color: color.tertiary),
             ),
             CustomTextButton(
-                text: "Allow Location Accss",
+                text: "Allow Location Access",
                 ontap: () {
                   context.push(CompleteYourProfileInfoView.routePath);
                 }),
@@ -56,9 +58,10 @@ class LocationAccessPage extends StatelessWidget {
               "Enter Location Manually",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: ColorAssets.primaryBlue),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: color.primary,
+              ),
             ).onTap(() {
               showLoactionAccessingBottomModelSheet(context);
             }),

@@ -18,16 +18,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
     return Scaffold(
       body: Column(
         children: [
           Expanded(
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.fromSwatch(
-                  accentColor: Color.fromARGB(0, 255, 255, 255),
-                ),
-              ),
+          
               child: PageView(
                 controller: pageController,
                 children: const [
@@ -35,7 +31,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   Page2(),
                   Page3(),
                 ],
-              ),
+              // ),
             ),
           ),
           SmoothPageIndicator(
@@ -45,8 +41,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 duration: const Duration(seconds: 1), curve: Curves.easeIn),
             effect: WormEffect(
                 spacing: 28,
-                activeDotColor: ColorAssets.primaryBlue,
-                dotColor: ColorAssets.lightGray,
+                activeDotColor:color.primary,
+                dotColor: color.tertiary,
                 dotWidth: 12,
                 dotHeight: 12),
           ),

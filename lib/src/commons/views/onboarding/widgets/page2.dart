@@ -10,6 +10,8 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    final color = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.all(45.0),
       child: Column(
@@ -37,22 +39,23 @@ class Page2 extends StatelessWidget {
                       children: [
                         TextSpan(
                             text: " to View\nStudio",
-                            style: textTheme.titleLarge!.copyWith(
-                                color: ColorAssets.black, fontSize: 26)),
+                             style: textTheme.titleLarge!.copyWith(
+                                color: color.primary, fontSize: 26)),
                       ],
-                      style: textTheme.titleLarge!.copyWith(
-                          color: ColorAssets.primaryBlue, fontSize: 26)),
+                     style: textTheme.titleLarge!
+                          .copyWith(fontSize: 26)),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
                 // description
                 Text(
                   "Keep track of your booking , stay, organized, & never miss a creative opportunity.",
-                  style: textTheme.bodyMedium!.copyWith(
-                      color: ColorAssets.lightGray,
+                  style: textTheme.titleMedium!.copyWith(
+                      color: color.tertiary,
+                      
                       fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                )
+                      fontWeight: FontWeight.w600
+                      ),)
               ],
             ),
           )),

@@ -23,8 +23,9 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: ColorAssets.white,
+      // backgroundColor: ColorAssets.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -45,23 +46,22 @@ class SignUpPage extends StatelessWidget {
                     widget: RichText(
                       text: TextSpan(
                           text: "Alredy have an account?",
-                          style: TextStyle(
+                          style: textTheme.titleLarge!.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: ColorAssets.black,
                           ),
                           children: [
                             TextSpan(
-                                text: " Sign In",
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    context.push(LoginPage.routePath);
-                                  },
-                                style: TextStyle(
+                              text: " Sign In",
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  context.push(LoginPage.routePath);
+                                },
+                              style: textTheme.titleLarge!.copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: ColorAssets.primaryBlue,
-                                ))
+                                  color: Theme.of(context).colorScheme.primary),
+                            )
                           ]),
                     ),
                   ),

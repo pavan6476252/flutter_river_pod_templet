@@ -10,10 +10,15 @@ import 'package:flutter_riverpod_base/src/feature/auth/login_page.dart';
 import 'package:flutter_riverpod_base/src/feature/auth/sign_up_page.dart';
 import 'package:flutter_riverpod_base/src/feature/booking/booking_view.dart';
 import 'package:flutter_riverpod_base/src/feature/chat/chat_view.dart';
+import 'package:flutter_riverpod_base/src/feature/chat/user_chat_profile.dart';
 import 'package:flutter_riverpod_base/src/feature/home/view/home.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/complete_profile_info.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart';
-import 'package:flutter_riverpod_base/src/feature/search_view/search_view.dart';
+import 'package:flutter_riverpod_base/src/feature/search_view/search_results_view.dart';
+import 'package:flutter_riverpod_base/src/feature/search_view/studio_search_view.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/view/language_view.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/view/notification_settings_view.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/view/password_manager_view.dart';
 import 'package:flutter_riverpod_base/src/feature/settings/view/settings_view.dart';
 import 'package:flutter_riverpod_base/src/res/data.dart';
 import 'package:go_router/go_router.dart';
@@ -27,9 +32,40 @@ final GoRouter router = GoRouter(
   initialLocation: SplashView.routePath,
   routes: [
     GoRoute(
+      path: PasswordManagerView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return PasswordManagerView();
+      },
+    ),
+    GoRoute(
+      path: SearchResultsView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        final extras = state.extra as Map<String, dynamic>;
+        return SearchResultsView(searchTerm:  extras['query'],);
+      },
+    ),
+    GoRoute(
+      path: NotificationSettingsView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return NotificationSettingsView();
+      },
+    ),
+    GoRoute(
+      path: LanguageSelectionView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return LanguageSelectionView();
+      },
+    ),
+    GoRoute(
+      path: UserChatProfileView.routePath,
+      builder: (BuildContext context, GoRouterState state) {
+        return UserChatProfileView();
+      },
+    ),
+    GoRoute(
       path: NotificationView.routePath,
       builder: (BuildContext context, GoRouterState state) {
-        return  NotificationView();
+        return NotificationView();
       },
     ),
     GoRoute(
@@ -59,7 +95,9 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ChatView.routePath,
       builder: (BuildContext context, GoRouterState state) {
-        return   ChatView(uid: "",);
+        return ChatView(
+          uid: "",
+        );
       },
     ),
     GoRoute(
@@ -69,9 +107,9 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: SearchView.routePath,
+      path: StudioSearchView.routePath,
       builder: (BuildContext context, GoRouterState state) {
-        return const SearchView();
+        return const StudioSearchView();
       },
     ),
     GoRoute(

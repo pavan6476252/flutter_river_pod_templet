@@ -5,9 +5,11 @@ import 'package:flutter_riverpod_base/src/utils/form_text_field.dart';
 import 'package:flutter_riverpod_base/src/utils/image_picker_utilities.dart';
 
 showLoactionAccessingBottomModelSheet(BuildContext context) {
+      final color = Theme.of(context).colorScheme;
+
   showModalBottomSheet(
     showDragHandle: true,
-    backgroundColor: ColorAssets.lightBlueGray,
+    backgroundColor:  color.secondary,
     enableDrag: true,
     context: context,
     builder: (context) {

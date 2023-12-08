@@ -3,7 +3,7 @@ import 'package:flutter_riverpod_base/src/feature/home/tabs/chat_tab.dart';
 import 'package:flutter_riverpod_base/src/feature/home/tabs/explore_tab.dart';
 import 'package:flutter_riverpod_base/src/feature/home/tabs/favorites_tab.dart';
 import 'package:flutter_riverpod_base/src/feature/home/tabs/home_tab.dart';
-import 'package:flutter_riverpod_base/src/feature/home/tabs/profile_tab.dart'; 
+import 'package:flutter_riverpod_base/src/feature/home/tabs/profile_tab.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,19 +21,20 @@ class _HomeViewState extends State<HomeView> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorAssets.white,
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            color: ColorAssets.white,
-            boxShadow: [
-              BoxShadow(
-                  blurRadius: 4, spreadRadius: 0, color: ColorAssets.lightGray)
-            ],
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          height: 82,  
+    TextTheme textTheme = Theme.of(context).textTheme;
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    return Scaffold(  
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration( 
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 4, spreadRadius: 0, color: colorScheme.surface)
+          ],
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        height: 82,
+        child: ClipRRect(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,15 +47,15 @@ class _HomeViewState extends State<HomeView> {
             ],
           ),
         ),
-        body: SafeArea(
-            child: [
-          HomeTab(),
-          ExploreTab(),
-          FavoritesTab(),
-          ChatTab(),
-          ProfileTab(),
-        ][_currentIndex]),
       ),
+      body: SafeArea(
+          child: [
+        HomeTab(),
+        ExploreTab(),
+        FavoritesTab(),
+        ChatTab(),
+        ProfileTab(),
+      ][_currentIndex]),
     );
   }
 
@@ -65,9 +66,11 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget buildNavItem(int index, String title, String path) {
+            final color = Theme.of(context).colorScheme;
     final iconColor = index == _currentIndex
-        ? ColorAssets.primaryBlue
+        ? color.primary
         : ColorAssets.lightGray;
+
 
     return Expanded(
       flex: 1,
@@ -91,7 +94,7 @@ class _HomeViewState extends State<HomeView> {
                     style: TextStyle(
                       fontSize: 14,
                       color: index == _currentIndex
-                          ? ColorAssets.primaryBlue
+                          ? color.primary
                           : ColorAssets.lightGray,
                       fontWeight: FontWeight.w600,
                     ),

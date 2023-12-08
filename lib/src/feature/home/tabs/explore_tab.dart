@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_riverpod_base/src/res/data.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/item_list_tile_view.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import 'package:latlong2/latlong.dart';
 import '../widgets/custom_search_bar.dart';
 
 class ExploreTab extends StatefulWidget {
@@ -20,11 +23,28 @@ class _ExploreTabState extends State<ExploreTab> {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.asset(
-          ImageAssets.mapImage,
-          fit: BoxFit.cover,
+        FlutterMap(
+          options: MapOptions(
+            initialCenter: LatLng(18.4038, 83.3395),
+            initialZoom: 9.2,
+          ),
+          children: [
+            TileLayer(
+              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              userAgentPackageName: 'com.example.app',
+            ),
+            RichAttributionWidget(
+              attributions: [
+                TextSourceAttribution(
+                  'OpenStreetMap contributors',
+                  onTap: () => launchUrl(
+                      Uri.parse('https://openstreetmap.org/copyright')),
+                ),
+              ],
+            ),
+          ],
         ),
-         Align(
+        Align(
           alignment: Alignment.center,
           child: SvgPicture.asset(ImageAssets.mapPoints),
         ),
@@ -32,9 +52,9 @@ class _ExploreTabState extends State<ExploreTab> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: [
-        _buildSearchbar(),
-       const Spacer(),
-        _buildNearbyLocations(),
+            _buildSearchbar(),
+            const Spacer(),
+            _buildNearbyLocations(),
           ],
         ),
       ],

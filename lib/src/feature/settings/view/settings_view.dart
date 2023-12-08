@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/commons/widgets/custom_list_tile.dart';
 import 'package:flutter_riverpod_base/src/feature/profile/views/edit_profile_info.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/view/notification_settings_view.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/view/password_manager_view.dart';
 import 'package:flutter_riverpod_base/src/feature/settings/widgets/delete_account_alert.dart';
+import 'package:flutter_riverpod_base/src/feature/settings/widgets/theme_switch.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
+import 'package:flutter_riverpod_base/src/utils/app_settings_handler.dart';
+import 'package:flutter_riverpod_base/src/utils/widgets/basic_sliver_appbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,31 +25,39 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: ColorAssets.white,
+      // backgroundColor: ColorAssets.white,
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-              pinned: true, floating: true, delegate: SliverHomeHeader()),
+              pinned: true,
+              floating: true,
+              delegate: BasicSliverAppbar(title: "Settings")),
           SliverList(
             delegate: SliverChildListDelegate([
               CustomListTile(
                 leadingIcon: Icon(
                   Icons.notifications_none_sharp,
-                  color: ColorAssets.primaryBlue,
+                  color: colorScheme.primary,
                 ),
                 title: Text(
                   "Notification Settings",
-                  style: TextStyle(
+                  style: textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
-                    color: ColorAssets.blackFaded,
+                    // color: ColorAssets.blackFaded,
                   ),
                 ),
                 tailingIcon: Icon(Icons.chevron_right_rounded,
                     color: ColorAssets.primaryBlue),
-                onTap: () {},
+                onTap: () {
+                  // AppSettingsHandler.openNotificationSettings(context);
+                  context.push(NotificationSettingsView.routePath);
+                },
               ),
+              const ThemeSwitchingWidget(),
               CustomListTile(
                 leadingIcon: SvgPicture.asset(
                   ImageAssets.key,
@@ -53,15 +66,12 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 title: Text(
                   "Password Manager",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: ColorAssets.blackFaded,
-                  ),
                 ),
                 tailingIcon: Icon(Icons.chevron_right_rounded,
                     color: ColorAssets.primaryBlue),
-                onTap: () {},
+                onTap: () {
+                  context.push(PasswordManagerView.routePath);
+                },
               ),
               CustomListTile(
                 leadingIcon: SvgPicture.asset(
@@ -71,11 +81,6 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 title: Text(
                   "Delete Account",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: ColorAssets.blackFaded,
-                  ),
                 ),
                 onTap: () {
                   _showAccountDeleteAlert(context);
@@ -97,50 +102,5 @@ class _SettingsViewState extends State<SettingsView> {
         builder: (BuildContext context) {
           return DeleteAccountAlertModel();
         });
-  }
-}
-
-class SliverHomeHeader extends SliverPersistentHeaderDelegate {
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      title: Text(
-        "Settings",
-        style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: ColorAssets.blackFaded),
-      ),
-      centerTitle: true,
-      leading: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: GestureDetector(
-          onTap: () {
-            context.pop();
-          },
-          child: CircleAvatar(
-            // radius: 30,
-            backgroundColor: ColorAssets.lightGray.withOpacity(0.1),
-            child: Icon(
-              Icons.arrow_back,
-              color: ColorAssets.black,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => 80;
-
-  @override
-  double get minExtent => 80;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
   }
 }

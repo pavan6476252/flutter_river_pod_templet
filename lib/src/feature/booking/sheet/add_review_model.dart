@@ -18,6 +18,9 @@ class _AddReviewModelState extends State<AddReviewModel> {
   double rating = 0;
   @override
   Widget build(BuildContext context) {
+    
+            final color = Theme.of(context).colorScheme;
+
     return Container(
       decoration: BoxDecoration(
           color: ColorAssets.white,
@@ -146,7 +149,7 @@ class _AddReviewModelState extends State<AddReviewModel> {
                           hintText: 'Enter review',
                           hintStyle: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
-                          fillColor: ColorAssets.lightBlueGray,
+                          fillColor:  color.secondary,
                           filled: true,
                           border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -167,7 +170,7 @@ class _AddReviewModelState extends State<AddReviewModel> {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: ColorAssets.primaryBlue),
+                              color: color.primary),
                         )
                       ],
                     ),
@@ -183,7 +186,7 @@ class _AddReviewModelState extends State<AddReviewModel> {
             height: 82,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             decoration: BoxDecoration(
-                color: ColorAssets.white,
+                color:color.background,
                 boxShadow: [
                   BoxShadow(color: ColorAssets.lightGray, blurRadius: 3)
                 ],

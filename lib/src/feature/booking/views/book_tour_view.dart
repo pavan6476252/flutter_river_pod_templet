@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/widgets/simple_app_bar.dart';
 import 'package:flutter_riverpod_base/src/feature/booking/views/tour_request_view.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
- 
+
 import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
+import 'package:flutter_riverpod_base/src/utils/widgets/customElevatedContainer.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../home/view/home.dart';
@@ -20,42 +22,11 @@ class _BookingTourViewState extends State<BookingTourView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorAssets.white,
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          "Book Tour",
-          style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-              color: ColorAssets.blackFaded),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Container(
-            width: 20,
-            height: 20,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: ColorAssets.white,
-                boxShadow: [
-                  BoxShadow(
-                      color: ColorAssets.lightGray.withOpacity(0.5),
-                      blurRadius: 1)
-                ]),
-            child: GestureDetector(
-              onTap: () {
-                context.pop();
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                size: 20,
-              ),
-            ),
-          ),
-        ),
-      ),
+     appBar: SimpleAppBar(
+  title: "Book Tour",
+  leadingCallback: () => Navigator.pop(context),
+),
+
       body: Column(
         children: [
           Expanded(
@@ -75,41 +46,28 @@ class _BookingTourViewState extends State<BookingTourView> {
                             color: ColorAssets.blackFaded),
                       ),
                     ),
-                    _buildFormFields(),
+                    _buildFormFields(context),
                   ],
                 ),
               ),
             ),
           ),
 
-          Container(
-            height: 82,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            decoration: BoxDecoration(
-                color: ColorAssets.white,
-                boxShadow: [
-                  BoxShadow(color: ColorAssets.lightGray, blurRadius: 3)
-                ],
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(20))),
-            child: Center(
-              child: CustomTextButton(
-                  text: "Continue",
-                  
-                  ontap: () {
-                    //ontap
-                    context.push(TourRequestView.routePath);
-                  }),
-            ),
-          ),
-
+          CustomElevatedContainer(
+            buttonText: "Continue",
+            onTap: () {
+              context.push(TourRequestView.routePath);
+            },
+          )
           // button
         ],
       ),
     );
   }
 
-  _buildFormFields() {
+  _buildFormFields(BuildContext context) {
+        final color = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Column(
@@ -126,7 +84,7 @@ class _BookingTourViewState extends State<BookingTourView> {
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
-                    color: ColorAssets.lightBlueGray,
+                    color: color.secondary,
                     borderRadius: BorderRadius.circular(10)),
                 child: TextFormField(
                   style: const TextStyle(
@@ -156,7 +114,7 @@ class _BookingTourViewState extends State<BookingTourView> {
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
-                    color: ColorAssets.lightBlueGray,
+                    color:  color.secondary,
                     borderRadius: BorderRadius.circular(10)),
                 child: TextFormField(
                   style: const TextStyle(
@@ -167,7 +125,7 @@ class _BookingTourViewState extends State<BookingTourView> {
                     hintStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: ColorAssets.blackFaded),
+                       ),
                   ),
                 ),
               )
@@ -187,14 +145,15 @@ class _BookingTourViewState extends State<BookingTourView> {
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
-                  color: ColorAssets.lightBlueGray,
+                  color:  color.secondary,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: DropdownButton(
                   value: 'f',
+                
                   underline: const SizedBox(),
                   isExpanded: true,
-                  items: [
+                  items: const [
                     DropdownMenuItem(
                       value: 'f',
                       child: Text(
@@ -245,7 +204,7 @@ class _BookingTourViewState extends State<BookingTourView> {
                             fontWeight: FontWeight.w600,
                             color: ColorAssets.blackFaded),
                         underline: const SizedBox(),
-                        items: [const DropdownMenuItem(child: Text("+91"))],
+                        items: const [DropdownMenuItem(child: Text("+91"))],
                         onChanged: (val) {}),
                     Container(
                       margin: const EdgeInsets.only(left: 0, right: 4),
@@ -285,14 +244,14 @@ class _BookingTourViewState extends State<BookingTourView> {
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
-                  color: ColorAssets.lightBlueGray,
+                  color:  color.secondary,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: DropdownButton(
                   value: 'I',
                   underline: const SizedBox(),
                   isExpanded: true,
-                  items: [
+                  items: const [
                     DropdownMenuItem(
                       value: 'I',
                       child: Text(

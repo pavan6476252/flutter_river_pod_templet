@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_base/src/feature/chat/chat_view.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
+import 'package:flutter_riverpod_base/src/utils/widgets/sliverAppbarwithSearchbar.dart';
 import 'package:go_router/go_router.dart';
 
 class ChatTab extends StatefulWidget {
@@ -12,7 +13,8 @@ class ChatTab extends StatefulWidget {
 
 class _ChatTabState extends State<ChatTab> {
   ScrollController scrollController = ScrollController();
-  bool _isSliverAppBarExpanded = true;
+  TextEditingController textEditingController = TextEditingController();
+  bool _isSliverAppBarExpanded = false;
   @override
   void initState() {
     super.initState();
@@ -25,11 +27,27 @@ class _ChatTabState extends State<ChatTab> {
     });
   }
 
+  String searchTerm = '';
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
     return CustomScrollView(
+      
       controller: scrollController,
-      slivers: [_buildSliverAppbar(), _chatsBuilder()],
+      slivers: [
+        SliverAppbarwithSearchBar(
+          statusbarColor:color.primary,
+          context: context,
+          controller: textEditingController,
+          title: "Chat",
+          isSliverAppBarExpanded: _isSliverAppBarExpanded,
+          onChange: (val) {
+            searchTerm = val;
+            setState(() {});
+          },
+        ),
+        _chatsBuilder()
+      ],
     );
   }
 
@@ -162,144 +180,84 @@ class _ChatTabState extends State<ChatTab> {
         'unread': 0,
       },
     ];
+return SliverList(
+  delegate: SliverChildBuilderDelegate(
+    (context, int index) {
+      final Map<String, dynamic> chat = chatData[index];
+      final String name = chat['name'].toString().toLowerCase();
+      final String message = chat['message'].toString().toLowerCase();
 
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, int index) {
-          final Map<String, dynamic> chat = chatData[index];
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-            // padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-            decoration: BoxDecoration(
-                color: ColorAssets.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 2,
-                      color: ColorAssets.lightGray.withOpacity(0.5))
-                ]),
-            child: ListTile(
-              
-              // contentPadding: EdgeInsets.zero,
-              leading: Badge(
-                alignment: Alignment.bottomRight,
-                textColor: Colors.green,
-                backgroundColor:
-                    index % 3 == 0 ? Colors.green : ColorAssets.lightGray,
-                smallSize: 10,
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(chat['image']),
-                ),
-              ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    chat['name'],
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: ColorAssets.blackFaded),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    chat['time'],
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: ColorAssets.lightGray),
-                  ),
-                ],
-              ),
-              subtitle: Text(
-                chat['message'],
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                    color: ColorAssets.lightGray),
-              ),
-              // trailing: Column(
-              //   crossAxisAlignment: CrossAxisAlignment.end,
-              //   children: [
-              //     SizedBox(height:5),
-              //     Text(
-              //       chat['time'],
-              //       style: const TextStyle(
-              //         color: Colors.grey,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              onTap: () {
-                context.push(ChatView.routePath);
-              },
+      bool isSearchMatch = searchTerm.isEmpty ||
+          name.contains(searchTerm.toLowerCase()) ||
+          message.contains(searchTerm.toLowerCase());
+
+      if (!isSearchMatch) {
+        return SizedBox.shrink();
+      }
+
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+        decoration: BoxDecoration(
+          color: ColorAssets.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 2,
+              color: ColorAssets.lightGray.withOpacity(0.5),
             ),
-          );
-        },
-        childCount: chatData.length,
-      ),
-    );
-  }
-
-  SliverAppBar _buildSliverAppbar() {
-    return SliverAppBar(
-      backgroundColor: ColorAssets.primaryBlue,
-      elevation: 0,
-      snap: true,
-      floating: true,
-      pinned: true,
-      centerTitle: true,
-      leading: Container(
-        margin: EdgeInsets.only(left: 20),
-        child: Icon(
-          Icons.arrow_back,
+          ],
         ),
-        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-      ),
-      title: !_isSliverAppBarExpanded
-          ? Text(
-              "Chat",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: ColorAssets.white,
-              ),
-            )
-          : null,
-      bottom: PreferredSize(
-        preferredSize: const Size(double.maxFinite, 70),
-        child: Container(
-          margin:
-              const EdgeInsets.only(left: 20, right: 20, bottom: 12, top: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: ColorAssets.lightBlueGray,
+        child: ListTile(
+          leading: Badge(
+            alignment: Alignment.bottomRight,
+            textColor: Colors.green,
+            backgroundColor:
+                index % 3 == 0 ? Colors.green : ColorAssets.lightGray,
+            smallSize: 10,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(chat['image']),
+            ),
           ),
-          child: Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Search Agents",
-                    hintStyle: TextStyle(color: ColorAssets.lightGray),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: ColorAssets.primaryBlue,
-                    ),
-                    border: InputBorder.none,
-                  ),
+              Text(
+                chat['name'],
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  color: ColorAssets.blackFaded,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                chat['time'],
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                  color: ColorAssets.lightGray,
                 ),
               ),
             ],
           ),
+          subtitle: Text(
+            chat['message'],
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+              color: ColorAssets.lightGray,
+            ),
+          ),
+          onTap: () {
+            context.push(ChatView.routePath);
+          },
         ),
-      ),
-    );
-  }
-}
+      );
+    },
+    childCount: chatData.length,
+  ),
+);
+  }}

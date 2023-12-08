@@ -1,41 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/widgets/simple_app_bar.dart';
 import 'package:flutter_riverpod_base/src/models/notification.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class NotificationView extends StatelessWidget {
   static String routePath = '/notifications-view';
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    ColorScheme color = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        leading: Container(
-          margin: const EdgeInsets.only(left: 20),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              size: 20,
-            ),
-          ),
-        ),
-        centerTitle: true,
-        title: const Text(
-          "Notification",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+      appBar: SimpleAppBar(
+        title: "Notification",
+        leadingCallback: () => Navigator.pop(context),
       ),
       body: ListView.builder(
         itemCount: groupedNotifications.notificationDates.length,
@@ -61,16 +42,17 @@ class NotificationView extends StatelessWidget {
                     Text(
                       "Mark all as read",
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: ColorAssets.primaryBlue),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: color.primary,
+                      ),
                     ),
                   ],
                 ),
               ),
               Column(
                 children: notificationDate.notifications
-                    .map(buildNotificationItem)
+                    .map((e)=>buildNotificationItem(context,e))
                     .toList(),
               ),
             ],
@@ -98,11 +80,13 @@ class NotificationView extends StatelessWidget {
     }
   }
 
-  Widget buildNotificationItem(NotificationModel notification) {
+  Widget buildNotificationItem(BuildContext context,NotificationModel notification) {
+        final color = Theme.of(context).colorScheme;
+
     return Container(
       decoration: BoxDecoration(
           color: notification.type == NotificationType.exclusiveOffer
-              ? ColorAssets.lightBlueGray
+              ?  color.secondary
               : null),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
       child: Row(
@@ -115,7 +99,7 @@ class NotificationView extends StatelessWidget {
               backgroundColor:
                   notification.type == NotificationType.exclusiveOffer
                       ? ColorAssets.white
-                      : ColorAssets.lightBlueGray,
+                      :  color.secondary,
               child: SvgPicture.asset(getIconLocation(notification.type)),
             ),
           ),
@@ -163,17 +147,4 @@ class NotificationView extends StatelessWidget {
       return '${date.day}d';
     }
   }
-
-  String _formatDate(DateTime date) {
-    final now = DateTime.now();
-    if (isSameDay(date, now)) {
-      return 'Today';
-    } else if (isSameDay(date, now.subtract(const Duration(days: 1)))) {
-      return 'Yesterday';
-    } else {
-      return '${date.day}/${date.month}/${date.year}';
-    }
-  }
 }
-
-// (GroupedNotifications, NotificationDate, NotificationModel, NotificationType, _formatDate, isSameDay) are reused from the previous response.

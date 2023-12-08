@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/feature/booking/tabs/widget/filter_option_dialogue.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/custom_tab_builder.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../sheet/add_review_model.dart';
+import 'widget/filter_option_widget.dart';
 
 class ReviewTab extends StatefulWidget {
   const ReviewTab({super.key});
@@ -16,6 +18,8 @@ class ReviewTab extends StatefulWidget {
 class _ReviewTabState extends State<ReviewTab> {
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -41,7 +45,7 @@ class _ReviewTabState extends State<ReviewTab> {
                         Icon(
                           Icons.edit,
                           size: 14,
-                          color: ColorAssets.primaryBlue,
+                          color: color.primary,
                         ),
                         GestureDetector(
                           onTap: () => openReviewModelSheet(context),
@@ -50,7 +54,7 @@ class _ReviewTabState extends State<ReviewTab> {
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: ColorAssets.primaryBlue),
+                                color: color.primary),
                           ),
                         ),
                       ],
@@ -60,45 +64,21 @@ class _ReviewTabState extends State<ReviewTab> {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsetsDirectional.symmetric(
-                          horizontal: 17, vertical: 6),
-                      decoration: BoxDecoration(
-                          color: ColorAssets.lightBlueGray,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.tune,
-                            color: ColorAssets.blackFaded,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            "Filter",
-                            style: TextStyle(
-                                color: ColorAssets.blackFaded,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
+                    FilterOptionsWidget(
+                      label: 'Filter',
+                      onTap: () => _showFilterOptionsDialog(context),
+                      isSelected: selectedFilter != ReviewFilterEnum.all,
                     ),
                     const SizedBox(width: 15),
-                    Container(
-                      padding: const EdgeInsetsDirectional.symmetric(
-                          horizontal: 17, vertical: 6),
-                      decoration: BoxDecoration(
-                          color: ColorAssets.primaryBlue,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Text(
-                        "All",
-                        style: TextStyle(
-                            color: ColorAssets.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    )
+                    FilterOptionsWidget(
+                      label: 'All',
+                      onTap: () {
+                        setState(() {
+                          selectedFilter = ReviewFilterEnum.all;
+                        });
+                      },
+                      isSelected: selectedFilter == ReviewFilterEnum.all,
+                    ),
                   ],
                 ),
               ],
@@ -108,31 +88,58 @@ class _ReviewTabState extends State<ReviewTab> {
 
           const Divider(height: 1),
 
-          _reviewBuilder(review: [
-            ReviewModel(
-                name: "Dale Thiel",
-                image: ImageAssets.profileImageJpeg,
-                description:
-                    "Discover our state-of-the-art Photography Studio, a haven for photographers and creatives a like. ",
-                rating: 4.0,
-                time: '11 Months ago'),
-            ReviewModel(
-                name: "John Doe",
-                image: ImageAssets.profileImageJpeg,
-                description:
-                    "Discover our state-of-the-art Photography Studio, a haven for photographers and creatives a like. ",
-                rating: 4.0,
-                time: '11 Months ago'),
-          ])
+          _reviewBuilder(filter: selectedFilter)
         ],
       ),
     );
   }
 
-  _reviewBuilder({required List<ReviewModel> review}) {
+  ReviewFilterEnum selectedFilter = ReviewFilterEnum.all;
+  void _showFilterOptionsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return FilterOptionsDialog(
+          onOptionSelected: (option) {
+            setState(() {
+              selectedFilter = option;
+            });
+          },
+        );
+      },
+    );
+  }
+
+  _reviewBuilder({required ReviewFilterEnum filter}) {
+    List<ReviewModel> review = [
+      ReviewModel(
+          name: "Dale Thiel",
+          image: ImageAssets.profileImageJpeg,
+          description:
+              "Discover our state-of-the-art Photography Studio, a haven for photographers and creatives a like. ",
+          rating: 4.0,
+          time: '11 Months ago'),
+      ReviewModel(
+          name: "John Doe",
+          image: ImageAssets.profileImageJpeg,
+          description:
+              "Discover our state-of-the-art Photography Studio, a haven for photographers and creatives a like. ",
+          rating: 4.0,
+          time: '11 Months ago'),
+      ReviewModel(
+          name: "John Doe",
+          image: ImageAssets.profileImageJpeg,
+          description:
+              "Discover our state-of-the-art Photography Studio, a haven for photographers and creatives a like. ",
+          rating: 4.0,
+          time: '11 Months ago'),
+    ];
+
     return ListView.builder(
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
+            final color = Theme.of(context).colorScheme;
+
         return Container(
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: ColorAssets.lightGray))),
@@ -141,7 +148,9 @@ class _ReviewTabState extends State<ReviewTab> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CircleAvatar(
+                CircleAvatar(
+              backgroundColor: color.secondary,
+                
                 radius: 15,
                 backgroundImage: AssetImage(ImageAssets.profileImageJpeg),
               ),
@@ -219,24 +228,20 @@ class _ReviewTabState extends State<ReviewTab> {
 
   void openReviewModelSheet(BuildContext context) {
     showModalBottomSheet(
-      backgroundColor: ColorAssets.white,
-    
+        backgroundColor: ColorAssets.white,
         isScrollControlled: true,
         context: context,
         builder: (BuildContext bc) {
-          return 
-            Container(
-              // padding: EdgeInsets.symmetric(horizontal: 20),
-              height: MediaQuery.of(context).size.height - 200,
-              decoration:  BoxDecoration(
-                  
-              color: ColorAssets.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0))),
-              child: AddReviewModel(),
-            )
-        ;
+          return Container(
+            // padding: EdgeInsets.symmetric(horizontal: 20),
+            height: MediaQuery.of(context).size.height - 200,
+            decoration: BoxDecoration(
+                color: ColorAssets.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0))),
+            child: AddReviewModel(),
+          );
         });
   }
 }

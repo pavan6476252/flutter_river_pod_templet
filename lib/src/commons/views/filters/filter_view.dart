@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/widgets/simple_app_bar.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
- 
 
 import '../../../utils/custom_text_button.dart';
 
@@ -17,38 +17,17 @@ class _FilterViewState extends State<FilterView> {
 
   Color? bgColor;
   Color? textColor;
-  String text = 'sdfs dsf';
+  String text = '';
   List<String> categories = ["All", "Photography", "Dance", "Art"];
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        leading: Container(
-          margin: const EdgeInsets.only(left: 20),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              size: 20,
-            ),
-          ),
-        ),
-        centerTitle: true,
-        title: const Text(
-          "Filter",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+      appBar: SimpleAppBar(
+        title: "Filter",
+        leadingCallback: () => Navigator.pop(context),
       ),
       body: Column(
         children: [
@@ -67,24 +46,31 @@ class _FilterViewState extends State<FilterView> {
           ),
           Container(
             height: 82,
+            width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 20),
             decoration: BoxDecoration(
-              color: ColorAssets.white,
+              color: color.surface,
               boxShadow: [
-                BoxShadow(color: ColorAssets.lightGray, blurRadius: 3)
+                BoxShadow(color: color.tertiary, blurRadius: 1, spreadRadius: 0)
               ],
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             child: Row(
+              // mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomTextButton(
-                    bgColor: null, text: 'Reset Filter', textColor: null, ontap: () {  },),
+                  bgColor: color.primary,
+                  text: 'Reset Filter',
+                  textColor: color.onPrimary,
+                  ontap: () {},
+                ),
                 CustomTextButton(
-                    bgColor: ColorAssets.primaryBlue,
-                    text: 'Apply',
-                    textColor: ColorAssets.white, ontap: () {  },)
+                  bgColor: color.primary,
+                  text: 'Apply',
+                  textColor: color.onPrimary,
+                  ontap: () {},
+                )
               ],
             ),
           ),
@@ -94,17 +80,19 @@ class _FilterViewState extends State<FilterView> {
   }
 
   Widget buildCategorySection() {
+    final color = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Category",
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 22,
-              color: ColorAssets.blackFaded,
+              // color: ColorAssets.blackFaded,
             ),
           ),
           const SizedBox(height: 15),
@@ -124,8 +112,8 @@ class _FilterViewState extends State<FilterView> {
                   ),
                   decoration: BoxDecoration(
                     color: selectedCategoryIndex == index
-                        ? ColorAssets.primaryBlue
-                        : ColorAssets.lightBlueGray,
+                        ? color.primary
+                        : color.secondary,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -134,8 +122,8 @@ class _FilterViewState extends State<FilterView> {
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: selectedCategoryIndex == index
-                          ? ColorAssets.white
-                          : ColorAssets.lightGray,
+                          ? color.onPrimary
+                          : color.tertiary,
                     ),
                   ),
                 ),
@@ -170,19 +158,21 @@ class _AmenitiesWrapWidgetState extends State<AmenitiesWrapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 0),
+          const Padding(
+            padding: EdgeInsets.only(left: 0),
             child: Text(
               "Amenities",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 22,
-                color: ColorAssets.blackFaded,
+                // color: ColorAssets.blackFaded,
               ),
             ),
           ),
@@ -208,8 +198,8 @@ class _AmenitiesWrapWidgetState extends State<AmenitiesWrapWidget> {
                   ),
                   decoration: BoxDecoration(
                     color: selectedPriceIndices.contains(index)
-                        ? ColorAssets.primaryBlue
-                        : ColorAssets.lightBlueGray,
+                        ? color.primary
+                        : color.secondary,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -218,8 +208,8 @@ class _AmenitiesWrapWidgetState extends State<AmenitiesWrapWidget> {
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: selectedPriceIndices.contains(index)
-                          ? ColorAssets.white
-                          : ColorAssets.lightGray,
+                          ? color.surface
+                          : color.tertiary,
                     ),
                   ),
                 ),
@@ -254,19 +244,21 @@ class _PricesWrapWidgetState extends State<PricesWrapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 0),
+          const Padding(
+            padding: EdgeInsets.only(left: 0),
             child: Text(
               "Price",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 22,
-                color: ColorAssets.blackFaded,
+                // color: ColorAssets.blackFaded,
               ),
             ),
           ),
@@ -288,8 +280,8 @@ class _PricesWrapWidgetState extends State<PricesWrapWidget> {
                   ),
                   decoration: BoxDecoration(
                     color: selectedPriceIndex == index
-                        ? ColorAssets.primaryBlue
-                        : ColorAssets.lightBlueGray,
+                        ? color.primary
+                        : color.secondary,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -298,8 +290,8 @@ class _PricesWrapWidgetState extends State<PricesWrapWidget> {
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: selectedPriceIndex == index
-                          ? ColorAssets.white
-                          : ColorAssets.lightGray,
+                          ? color.background
+                          : color.tertiary,
                     ),
                   ),
                 ),
@@ -329,12 +321,12 @@ class _RatingCheckBoxBuilderState extends State<RatingCheckBoxBuilder> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Rating",
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 22,
-              color: ColorAssets.blackFaded,
+              // color: ColorAssets.blackFaded,
             ),
           ),
           buildCheckBox(5, "4.5 and above"),
@@ -348,6 +340,8 @@ class _RatingCheckBoxBuilderState extends State<RatingCheckBoxBuilder> {
   }
 
   Widget buildCheckBox(int rating, String label) {
+    final color = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -357,7 +351,7 @@ class _RatingCheckBoxBuilderState extends State<RatingCheckBoxBuilder> {
             height: 24,
             width: 24,
             child: Checkbox(
-              activeColor: ColorAssets.primaryBlue,
+              activeColor: color.primary,
               value: selectedRating == rating,
               onChanged: (value) {
                 setState(() {
@@ -369,10 +363,10 @@ class _RatingCheckBoxBuilderState extends State<RatingCheckBoxBuilder> {
           const SizedBox(width: 20),
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 18,
-              color: ColorAssets.blackFaded,
+              // color: ColorAssets.blackFaded,
             ),
           ),
         ],

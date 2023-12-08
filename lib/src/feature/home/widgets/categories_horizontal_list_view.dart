@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/feature/search_view/search_results_view.dart';
 import 'package:flutter_riverpod_base/src/res/data.dart';
+import 'package:flutter_riverpod_base/src/utils/custom_extension_methods.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoriesHorizontalListView extends StatefulWidget {
   const CategoriesHorizontalListView({super.key});
@@ -14,7 +17,7 @@ class _CategoriesHorizontalListViewState
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       height: 85,
       width: double.maxFinite,
       child: ListView.builder(
@@ -41,7 +44,10 @@ class _CategoriesHorizontalListViewState
                 ),
               ],
             ),
-          );
+          ).onTap(() {
+            context.push(SearchResultsView.routePath,
+                extra: {"query": AppData.categories[index].title});
+          });
         },
         itemCount: AppData.categories.length,
       ),

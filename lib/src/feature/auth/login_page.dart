@@ -22,8 +22,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      backgroundColor: ColorAssets.white,
+      // backgroundColor: ColorAssets.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -35,7 +37,7 @@ class LoginPage extends StatelessWidget {
                   const AuthenticationPageHeaderBuilder(
                       title: "Login",
                       subtitle: "Hi! Welcome back, nice to see you"),
-                  _formFields(),
+                  _formFields(context),
                   CustomTextButton(
                       text: "Sign In",
                       ontap: () {
@@ -45,23 +47,22 @@ class LoginPage extends StatelessWidget {
                     widget: RichText(
                       text: TextSpan(
                           text: "Don't have account",
-                          style: TextStyle(
+                          style: textTheme.titleLarge!.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: ColorAssets.black,
                           ),
                           children: [
                             TextSpan(
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    context.push(SignUpPage.routePath);
-                                  },
-                                text: " Sign Up",
-                                style: TextStyle(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  context.push(SignUpPage.routePath);
+                                },
+                              text: " Sign Up",
+                              style: textTheme.titleLarge!.copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: ColorAssets.primaryBlue,
-                                ))
+                                  color: Theme.of(context).colorScheme.primary),
+                            )
                           ]),
                     ),
                   )
@@ -74,7 +75,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _formFields() {
+  _formFields(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -83,7 +84,7 @@ class LoginPage extends StatelessWidget {
           hintText: "example@gmail.com",
         ),
         const FormTextField(
-          hintText: ' * * * *  * * * ',
+          hintText: ' - - - - - - - - - - ',
           enableObsecure: true,
           labelText: 'Password',
         ),
@@ -93,9 +94,9 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 0),
             child: Text(
               "Forgot Password",
-              style: TextStyle(
+              style:    TextStyle(
                   decoration: TextDecoration.underline,
-                  color: ColorAssets.redAccent,
+                  color:Theme.of(context).colorScheme.error,
                   fontSize: 14,
                   fontWeight: FontWeight.w500),
             ),

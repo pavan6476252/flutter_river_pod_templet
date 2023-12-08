@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_base/src/commons/widgets/simple_app_bar.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
 import 'package:flutter_riverpod_base/src/res/data.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/item_list_tile_view.dart';
@@ -18,31 +19,10 @@ class _RecommendedStudiosViewState extends State<RecommendedStudiosView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Recomended Studio",
-          style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: ColorAssets.blackFaded),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: GestureDetector(
-             onTap: (){
-              context.pop();
-            },
-            child: CircleAvatar(
-              // radius: 30,
-              backgroundColor: ColorAssets.lightGray.withOpacity(0.1),
-              child: Icon(
-                Icons.arrow_back,
-                color: ColorAssets.black,
-              ),
-            ),
-          ),
-        ),
+      appBar: SimpleAppBar(
+  title:  "Recomended Studio",
+  leadingCallback: () => Navigator.pop(context),
+
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod_base/src/commons/views/location_access/location_access_page.dart';
 import 'package:flutter_riverpod_base/src/commons/views/notification/notification_view.dart';
 import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
@@ -10,33 +11,40 @@ class HomeViewAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
     return ListTile(
-      leading: const CircleAvatar(
+      leading:   CircleAvatar(
         radius: 20,
+        backgroundColor: color.secondary,
         backgroundImage: AssetImage(
-          ImageAssets.apple,
+          ImageAssets.profileImageJpeg,
         ),
       ),
       title: Text(
         'Tara Choudhary',
         style: TextStyle(
             fontSize: 18,
-            color: ColorAssets.blackFaded,
+            // color: ColorAssets.blackFaded,
             fontWeight: FontWeight.w600),
       ),
       subtitle: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'Pune',
-            style: TextStyle(
-                fontSize: 14,
-                color: ColorAssets.blackFaded,
-                fontWeight: FontWeight.w400),
+          GestureDetector(
+            onTap: () {
+              context.push(LocationAccessPage.routePath);
+            },
+            child: Text(
+              'Pune',
+              style: TextStyle(
+                  fontSize: 14,
+                  color: color.onBackground,
+                  fontWeight: FontWeight.w400),
+            ),
           ),
           Icon(
             Icons.keyboard_arrow_down,
-            color: ColorAssets.blackFaded,
+            color: color.onBackground,
           )
         ],
       ),
@@ -45,11 +53,11 @@ class HomeViewAppBar extends StatelessWidget {
           context.push(NotificationView.routePath);
         },
         child: CircleAvatar(
-          backgroundColor: ColorAssets.lightGray.withOpacity(0.1),
+          backgroundColor: color.secondary,
           child: Badge(
             child: Icon(
               Icons.notifications,
-              color: ColorAssets.black,
+              color: color.onBackground,
             ),
           ),
         ),

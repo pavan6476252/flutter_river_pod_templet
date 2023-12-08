@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod_base/src/feature/booking/views/book_tour_view.dart';
-import 'package:flutter_riverpod_base/src/res/assets.dart';
 import 'package:flutter_riverpod_base/src/res/colors.dart';
- 
-import 'package:flutter_riverpod_base/src/utils/custom_text_button.dart';
+
+import 'package:flutter_riverpod_base/src/utils/widgets/customElevatedContainer.dart';
 import 'package:flutter_riverpod_base/src/utils/widgets/custom_tab_builder.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -28,9 +25,19 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
     selectedDate = DateTime.now();
   }
 
+  bool isLiked = false;
+
+  toogleLikeButton() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
   double rating = 0;
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+
     return Container(
       decoration: BoxDecoration(
           color: ColorAssets.white,
@@ -144,8 +151,8 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                                 horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
                               color: selectedDate.day == currentDate.day
-                                  ? ColorAssets.primaryBlue
-                                  : ColorAssets.lightBlueGray,
+                                  ? color.primary
+                                  : color.secondary,
                               borderRadius: BorderRadius.circular(25),
                             ),
                             child: Column(
@@ -216,8 +223,8 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                                 horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
                               color: selectedDate.day == currentTime.hour
-                                  ? ColorAssets.primaryBlue
-                                  : ColorAssets.lightBlueGray,
+                                  ? color.primary
+                                  : color.secondary,
                               borderRadius: BorderRadius.circular(25),
                             ),
                             child: Text(
@@ -240,8 +247,7 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                     padding: EdgeInsets.only(left: 4),
                     decoration: BoxDecoration(
                         border: Border(
-                            left: BorderSide(
-                                color: ColorAssets.primaryBlue, width: 3))),
+                            left: BorderSide(color: color.primary, width: 3))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -257,7 +263,7 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
                           style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              color: ColorAssets.primaryBlue),
+                              color: color.primary),
                         ),
                       ],
                     ),
@@ -268,26 +274,12 @@ class _TourBookingModelSheetState extends State<TourBookingModelSheet> {
           ),
           // submit button
 
-          Container(
-            height: 82,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            decoration: BoxDecoration(
-                color: ColorAssets.white,
-                boxShadow: [
-                  BoxShadow(color: ColorAssets.lightGray, blurRadius: 3)
-                ],
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(20))),
-            child: Center(
-              child: CustomTextButton(
-                  text: "Schedule Tour",
-                  // textAlign: TextAlign.center,
-                  ontap: () {
-                    //ontap
-                    context.push(BookingTourView.routePath);
-                  }),
-            ),
-          ),
+          CustomElevatedContainer(
+            buttonText: "Schedule Tour",
+            onTap: () {
+              context.push(BookingTourView.routePath);
+            },
+          )
         ],
       ),
     );

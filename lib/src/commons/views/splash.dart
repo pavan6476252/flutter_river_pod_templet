@@ -29,7 +29,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return   Scaffold(
         backgroundColor: ColorAssets.white,
-        body: RiveAnimation.asset(
+        body: const RiveAnimation.asset(
           AnimationAssets.splashAnimation,
           fit: BoxFit.cover,
       animations: [],
